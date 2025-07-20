@@ -1,0 +1,21 @@
+#home{
+    padding-top: 100px;
+    padding-bottom: 100px;
+    
+}
+
+
+
+@media (max-width: 768px) {
+  img {
+    max-width: 120px !important;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+  
+ 
+  
+}

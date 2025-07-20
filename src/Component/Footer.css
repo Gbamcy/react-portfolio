@@ -1,0 +1,14 @@
+
+.footer a:hover {
+  color: #dfe6e9 !important;
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
+}
+
+.footer .fs-5 {
+  transition: transform 0.3s;
+}
+
+.footer .fs-5:hover {
+  transform: scale(1.2);
+}
