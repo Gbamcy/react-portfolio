@@ -1,5 +1,4 @@
-
-import "./Abouts.css"
+import "./Abouts.css";
 import {
   FaHtml5,
   FaCss3Alt,
@@ -11,32 +10,36 @@ import {
   FaLaravel,
 } from "react-icons/fa";
 
-
-
 const Abouts = () => {
-  return (<section className="bg-light py-5" id="about">
+  return (
+    <section className=" py-5 fade-up" id="about" style={{background:'white'}}>
       <div className="container">
-        <div className="row align-items-center">
-          {/* Image Column */}
-          <div className="col-12 col-md-3 text-center mb-4 mb-md-0">
+        <div className="row justify-content-center align-items-center">
+
+          {/* Profile Image */}
+          <div className="col-12 col-md-4 text-center mb-4 mb-md-0">
             <img
               src="/images/profile1.png"
               alt="Gbancy Ben"
-              className="img-fluid rounded-circle shadow"
-              style={{ maxWidth: "220px" }}
+              className="img-fluid rounded shadow-sm"
+              style={{ maxWidth: "200px" }}
             />
           </div>
 
-          {/* Text Column */}
-          <div className="col-12 col-md-9">
-            <h1 className="text-primary mb-3 fw-bold">About Me</h1>
+          {/* About Text */}
+          <div className="col-12 col-md-6">
+            <h1 className="fw-bold text-dark mb-3">About Me</h1>
             <p className="lead">
-              I’m a frontend developer, a passion for technology led me into the world of web development where I’ve spent the past year building responsive and user-friendly web applications using React.js and modern web tools. I thrive on creating elegant solutions, continuously learning, and transforming ideas into functional interfaces.
+              I' specialize in building modern, scalable, and user-focused web applications using React, PHP, JavaScript, and Laravel.
+
+               With a solid foundation in both frontend and backend development. Whether I’m creating dynamic single-page applications with React, building robust REST APIs with Laravel, or adding seamless interactivity with JavaScript.
+
+               I believe in writing code that not only works but also makes sense — code that’s easy to understand, efficient to run, and ready to scale. Let’s build something great.!
+
             </p>
 
-    
             {/* Tech Stack */}
-            <h5 className="mt-4 text-primary">Tech Stack</h5>
+            <h5 className="mt-4 text-dark">Tech Stack</h5>
             <div className="d-flex flex-wrap gap-4 fs-2 mt-3">
               <FaHtml5 title="HTML5" className="text-danger" />
               <FaCss3Alt title="CSS3" className="text-primary" />
@@ -46,12 +49,13 @@ const Abouts = () => {
               <FaReact title="React.js" className="text-info" />
               <FaLaravel title="Laravel" className="text-danger" />
               <FaDatabase title="MySQL" className="text-success" />
+              
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Abouts
+export default Abouts;

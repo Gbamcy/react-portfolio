@@ -1,7 +1,10 @@
+.contact-card {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
 
-@media (max-width:768px){
-  #contact{
-    overflow-x: hidden;
-  
-  }
-} 
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+

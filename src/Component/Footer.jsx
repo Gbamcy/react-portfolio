@@ -6,7 +6,7 @@ import './Footer.css'; // Custom styles
 
 const Footer = () => {
   return (
-    <footer className="footer text-white bg-primary py-4 mt-5 " id='footer'>
+    <footer className="footer text-white bg-dark py-4 mt-5 " id='footer'>
       <Container>
         <Row className="text-center text-md-start">
           {/* Social Media Links */}
@@ -19,7 +19,7 @@ const Footer = () => {
               <a href="https://linkedin.com/in/beke-benjamin-94b98a23b" className="text-white fs-5" target="_blank" rel="noopener noreferrer">
                 <FaLinkedin />
               </a>
-              <a href="https://facebook.com/benjamin.bek.5" className="text-white fs-5" target="_blank" rel="noopener noreferrer">
+              <a href="https://facebook.com/benjamin.beke.5" className="text-white fs-5" target="_blank" rel="noopener noreferrer">
                 <FaFacebook />
               </a>
               <a href="https://x.com/yourhandle" className="text-white fs-5" target="_blank" rel="noopener noreferrer">
@@ -29,7 +29,7 @@ const Footer = () => {
           </Col>
 
           {/* Quick Navigation Links */}
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} className='footerLi'>
             <h5 className="fw-bold mb-3">Quick Links</h5>
             <ul className="list-unstyled d-flex flex-column flex-md-row justify-content-center justify-content-md-end gap-3 mb-0">
               <li><NavLink to="/" style={{color:'white'}}>Home</NavLink></li>
@@ -43,7 +43,7 @@ const Footer = () => {
         <hr className="border-light my-4" />
 
         <p className="text-center mb-0 small">
-          © {new Date().getFullYear()} Beke Benjamin. All rights reserved.
+          © {new Date().getFullYear()} Benjamin Beke. All rights reserved.
         </p>
       </Container>
     </footer>

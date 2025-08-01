@@ -1,7 +1,15 @@
-.project-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.project-image {
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: cover;
+  border-top-left-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
+  display: block;
 }
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+
+@media (max-width: 576px) {
+  .project-image {
+    max-height: 200px;
+  }
 }
