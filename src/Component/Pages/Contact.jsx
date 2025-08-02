@@ -1,137 +1,186 @@
-import {
-  FaEnvelope,
-  FaPhoneAlt,
-  FaMapMarkerAlt,
-  FaUser,
-  FaMobileAlt,
-} from "react-icons/fa";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState, useEffect } from "react";
+import { useForm, ValidationError } from "@formspree/react";
+import { FaCheckCircle, FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+import { Spinner } from "react-bootstrap";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
-import "./Contact.css"; // For additional styles
-import { useForm, ValidationError } from '@formspree/react';
-
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Contact = () => {
-  const [state, handleSubmit] = useForm("xpwlrapj");
-  if (state.succeeded) {
-      return <p>Thanks for joining!</p>;
-  }
-  
+  const [state, handleSubmit] = useForm("xpwlrapj"); // Your Formspree ID
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    message: "",
+  });
+
+  const [formErrors, setFormErrors] = useState({
+    name: "",
+    phone: "",
+    message: "",
+  });
+
   useEffect(() => {
-    AOS.init({ duration: 1000 });
+    AOS.init();
   }, []);
 
+  useEffect(() => {
+    if (state.succeeded) {
+      setSuccessMessage(true);
+      setFormData({ name: "", phone: "", message: "" });
+
+      const timer = setTimeout(() => {
+        setSuccessMessage(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [state.succeeded]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormErrors(prev => ({ ...prev, [name]: "" }));
+  };
+
+  const validateForm = () => {
+    let valid = true;
+    const errors = { name: "", phone: "", message: "" };
+
+    if (!formData.name.trim()) {
+      errors.name = "Full name is required";
+      valid = false;
+    }
+
+    if (!formData.phone.trim()) {
+      errors.phone = "Phone number is required";
+      valid = false;
+    }
+
+    if (!formData.message.trim()) {
+      errors.message = "Message cannot be empty";
+      valid = false;
+    }
+
+    setFormErrors(errors);
+    return valid;
+  };
+
+  const handleValidatedSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      handleSubmit(e);
+    }
+  };
+
   return (
-    <main className="flex-fill pt-5 mt-5 bg-light" id="contact">
-      <div className="container py-5">
-        <h1 className="text-center text-dark fw-bold mb-5">Contact Me Directly</h1>
-
-        <div className="row g-4">
-          {/* Card 1: Contact Info */}
-          <div className="col-md-4" data-aos="fade-up">
-            <div className="bg-white p-4 rounded shadow-sm h-100 contact-card">
-              <h5 className="text-dark mb-4">Contact Information</h5>
-
-              <div className="d-flex align-items-center mb-3">
-                <FaEnvelope className="text-dark me-3 fs-5" />
-                <span>ushabeks@gmail.com</span>
-              </div>
-
-              <div className="d-flex align-items-center mb-3">
-                <FaPhoneAlt className="text-dark me-3 fs-5" />
-                <span>+234 703 214 6138</span>
-              </div>
-
-              <div className="d-flex align-items-center">
-                <FaMapMarkerAlt className="text-dark me-3 fs-5" />
-                <span>
-                  <img
-                    src="https://flagcdn.com/w40/ng.png"
-                    alt="Nigeria"
-                    width="24"
-                    className="me-2 rounded-circle"
-                  />
-                  Area 3 Garki Abuja, Nigeria.
-                </span>
+    <div className="container py-5">
+      <div className="row g-4">
+        {/* Left Grid - Contact Info */}
+        <div className="col-md-6" data-aos="fade-up">
+          <div className="bg-light p-4 rounded shadow-sm h-100">
+            <h5 className="text-dark mb-4">Contact Information</h5>
+            <div className="d-flex align-items-start mb-3">
+              <FaEnvelope className="text-primary me-3 mt-1" />
+              <div>
+                <h6 className="mb-1">Email</h6>
+                <p className="mb-0">example@email.com</p>
               </div>
             </div>
-          </div>
 
-          {/* Card 2: Contact Form */}
-          <div className="col-md-4" data-aos="fade-up" data-aos-delay="200">
-            <div className="bg-white p-4 rounded shadow-sm h-100 contact-card">
-              <h5 className="text-dark mb-4">Send a Message</h5>
-              <form onSubmit={handleSubmit} action="https://formspree.io/f/xpwlrapj" method="post">
-                <label htmlFor="name">
-                 Full Name
-                 </label>
-                 <input
-                  id="name"
-                  type="text" 
-                   name="name"
-                   className="form-control"
-                   />
-                  <ValidationError 
-                   prefix="name" 
-                   field="text"
-                    errors={state.errors}
-                    />
-                    <label htmlFor="phone">
-                     Mobile Number
-                    </label>
-                    <input
-                    id="phone"
-                    type="tel" 
-                    name="phone"
-                    className="form-control"
-                    />
-                   <ValidationError 
-                  prefix="phone" 
-                  field="tel"
-                  errors={state.errors}
-                  />
-                  <label htmlFor="message">
-                     Message
-                    </label>
-                 <textarea
-                 id="message"
-                 name="message"
-                 className="form-control mb-3"
-                 />
-                 <ValidationError 
-                 prefix="Message" 
-                 field="message"
-                  errors={state.errors}
-                  />
-                 <button type="submit" className="btn btn-outline-dark btn-md" disabled={state.submitting}>
-                  Submit
-                  </button>
-                </form> 
+            <div className="d-flex align-items-start mb-3">
+              <FaPhoneAlt className="text-success me-3 mt-1" />
+              <div>
+                <h6 className="mb-1">Mobile</h6>
+                <p className="mb-0">+234 812 345 6789</p>
+              </div>
             </div>
-          </div>
 
-          {/* Card 3: Map */}
-          <div className="col-md-4" data-aos="fade-up" data-aos-delay="400">
-            <div className="bg-white p-3 rounded shadow-sm h-100 contact-card">
-              <h5 className="text-dark mb-3">My Location</h5>
-              <div className="ratio ratio-4x3">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3931.6111099874537!2d7.495401975851512!3d9.033890088088226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0a7c0131fd7d%3A0x837b12c91b8d960a!2sArea%203%2C%20Garki%2C%20Abuja!5e0!3m2!1sen!2sng!4v1721986602247!5m2!1sen!2sng"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  title="Area 3 Garki Map"
-                ></iframe>
+            <div className="d-flex align-items-start">
+              <FaMapMarkerAlt className="text-danger me-3 mt-1" />
+              <div>
+                <h6 className="mb-1">Location</h6>
+                <p className="mb-0">Abuja, Nigeria</p>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Right Grid - Form */}
+        <div className="col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div className="bg-white p-4 rounded shadow-sm h-100 contact-card">
+            <h5 className="text-dark mb-4">Send a Message</h5>
+
+            {successMessage && (
+              <div className="alert alert-success d-flex align-items-center animate__animated animate__fadeInDown" role="alert">
+                <FaCheckCircle className="me-2" />
+                Message sent successfully!
+              </div>
+            )}
+
+            <form onSubmit={handleValidatedSubmit}>
+              <label htmlFor="name">Full Name</label>
+              <input
+                id="name"
+                type="text"
+                name="name"
+                className={`form-control ${formErrors.name && "is-invalid"}`}
+                value={formData.name}
+                onChange={handleChange}
+              />
+              {formErrors.name && (
+                <div className="invalid-feedback">{formErrors.name}</div>
+              )}
+              <ValidationError prefix="Name" field="name" errors={state.errors} />
+
+              <label htmlFor="phone" className="mt-3">Mobile Number</label>
+              <input
+                id="phone"
+                type="tel"
+                name="phone"
+                className={`form-control ${formErrors.phone && "is-invalid"}`}
+                value={formData.phone}
+                onChange={handleChange}
+              />
+              {formErrors.phone && (
+                <div className="invalid-feedback">{formErrors.phone}</div>
+              )}
+              <ValidationError prefix="Phone" field="phone" errors={state.errors} />
+
+              <label htmlFor="message" className="mt-3">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                className={`form-control mb-3 ${formErrors.message && "is-invalid"}`}
+                value={formData.message}
+                onChange={handleChange}
+              />
+              {formErrors.message && (
+                <div className="invalid-feedback">{formErrors.message}</div>
+              )}
+              <ValidationError prefix="Message" field="message" errors={state.errors} />
+
+              <button
+                type="submit"
+                className="btn btn-outline-dark btn-md d-flex align-items-center gap-2"
+                disabled={state.submitting}
+              >
+                {state.submitting ? (
+                  <>
+                    <Spinner animation="border" size="sm" />
+                    Sending...
+                  </>
+                ) : (
+                  "Submit"
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
-    </main>
+    </div>
   );
 };
 
