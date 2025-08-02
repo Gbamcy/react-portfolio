@@ -85,7 +85,7 @@ const Contact = () => {
               <FaEnvelope className="text-primary me-3 mt-1" />
               <div>
                 <h6 className="mb-1">Email</h6>
-                <p className="mb-0">example@email.com</p>
+                <p className="mb-0">ushabeks@gmail.com</p>
               </div>
             </div>
 
@@ -93,7 +93,7 @@ const Contact = () => {
               <FaPhoneAlt className="text-success me-3 mt-1" />
               <div>
                 <h6 className="mb-1">Mobile</h6>
-                <p className="mb-0">+234 812 345 6789</p>
+                <p className="mb-0">+234 7032146138</p>
               </div>
             </div>
 
